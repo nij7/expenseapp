@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "386072414911",
+    "project_id": "trackexx-29cd2",
+    "storage_bucket": "trackexx-29cd2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386072414911:android:3013bb8bd15f44b76f940a",
+        "android_client_info": {
+          "package_name": "com.example.trackexx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkzfPiqTvdKMtaKSwDPlEr4sUuwHOMZXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
