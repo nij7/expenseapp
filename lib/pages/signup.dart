@@ -1,23 +1,15 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:trackexx/pages/dashboard.dart';
 import 'package:trackexx/providor/user_providor.dart';
 import 'package:trackexx/theme/color.dart';
 import 'package:intl/intl.dart';
-
 import 'package:trackexx/theme/style.dart';
 import 'package:trackexx/widget/buttons.dart';
 import 'package:trackexx/widget/inputbox.dart';
@@ -49,25 +41,26 @@ class _SignupState extends State<Signup> {
   String descriptiomText = '';
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  File? _pickedImage;
+  // File? _pickedImage;
 
-  String? imagePath;
+  // String? imagePath;
 
   void uploadProfileanddata(
       BuildContext context, UserCredential userCredential) async {
-    // firebase_storage.UploadTask uploadTask;
-    firebase_storage.Reference ref = FirebaseStorage.instance
-        .ref()
-        .child('profile photo')
-        .child('/' + email.text + '.jpg');
+    //  firebase_storage.UploadTask uploadTask;
+    //  firebase_storage.Reference ref = FirebaseStorage.instance
+    //      .ref()
+    //     .child('profile photo')
+    //      .child('/' + email.text + '.jpg');
 
-    final metadata = firebaseStorage.SettableMetadata(
-        contentType: 'image/jpeg',
-        customMetadata: {'picked-file-path': _pickedImage!.path});
-    ref.putFile(File(_pickedImage!.path), metadata).then((value) async {
+    // final metadata = firebase_storage.SettableMetadata(
+        // contentType: 'image/jpeg',
+        // customMetadata: {'picked-file-path': _pickedImage!.path});
+    // ref.putFile(File(_pickedImage!.path), metadata).then((value) async {
+      {
       print("file uploaded");
-      imagePath = await ref.getDownloadURL();
-      print(imagePath);
+      // imagePath = await ref.getDownloadURL();
+      // print(imagePath);
       final CollectionReference postsRef =
           FirebaseFirestore.instance.collection('users');
       var data = {
@@ -75,7 +68,7 @@ class _SignupState extends State<Signup> {
         "name": name.text,
         "birthdate": Timestamp.fromDate(DateTime.parse(date)),
         "bio": description.text,
-        "profilePicture": imagePath,
+        // "profilePicture": imagePath,
         "isplus": false,
       };
       postsRef.doc(userCredential.user!.uid).set(data);
@@ -85,7 +78,7 @@ class _SignupState extends State<Signup> {
           context,
           MaterialPageRoute(builder: (contex) => Dashboard()),
           (route) => false);
-    });
+    }
   }
 
   void signup(BuildContext context) async {
@@ -97,7 +90,7 @@ class _SignupState extends State<Signup> {
       try {
         uploadProfileanddata(context, userCredential);
       } catch (e) {
-        print("something wrong,please try again latter");
+        print("something wrong,please try again later");
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -194,72 +187,72 @@ class _SignupState extends State<Signup> {
               },
               child: ListView(
                 children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: Container(
-                        width: 145,
-                        height: 145,
-                        //color: primary,
-                        child: Center(
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                bottom: 0,
-                                child: _pickedImage == null
-                                    ? Container(
-                                        width: 120,
-                                        height: 120,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: primary.withOpacity(0.85)),
-                                        child: Icon(
-                                          Icons.person,
-                                          size: 40,
-                                          color: white,
-                                        ),
-                                      )
-                                    : ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Image.file(
-                                          _pickedImage!,
-                                          width: 120,
-                                          height: 120,
-                                        ),
-                                      ),
-                              ),
-                              Positioned(
-                                right: 5,
-                                top: 5,
-                                child: InkWell(
-                                  onTap: () {
-                                    _showPickOptionsDialog(context);
-                                  },
-                                  child: Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                        color: primary,
-                                        borderRadius: BorderRadius.circular(
-                                            buttonRadius)),
-                                    child: Icon(
-                                      _pickedImage == null
-                                          ? Icons.camera_alt
-                                          : Icons.sync,
-                                      color: white,
-                                      size: 30,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Center(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.only(left: 25),
+                  //     child: Container(
+                  //       width: 145,
+                  //       height: 145,
+                  //       //color: primary,
+                  //       child: Center(
+                  //         child: Stack(
+                  //           children: [
+                  //             Positioned(
+                  //               left: 0,
+                  //               bottom: 0,
+                  //               child: _pickedImage == null
+                  //                   ? Container(
+                  //                       width: 120,
+                  //                       height: 120,
+                  //                       decoration: BoxDecoration(
+                  //                           borderRadius:
+                  //                               BorderRadius.circular(20),
+                  //                           color: primary.withOpacity(0.85)),
+                  //                       child: Icon(
+                  //                         Icons.person,
+                  //                         size: 40,
+                  //                         color: white,
+                  //                       ),
+                  //                     )
+                  //                   : ClipRRect(
+                  //                       borderRadius: BorderRadius.circular(20),
+                  //                       child: Image.file(
+                  //                         _pickedImage!,
+                  //                         width: 120,
+                  //                         height: 120,
+                  //                       ),
+                  //                     ),
+                  //             ),
+                  //             Positioned(
+                  //               right: 5,
+                  //               top: 5,
+                  //               child: InkWell(
+                  //                 onTap: () {
+                  //                   _showPickOptionsDialog(context);
+                  //                 },
+                  //                 child: Container(
+                  //                   width: 40,
+                  //                   height: 40,
+                  //                   decoration: BoxDecoration(
+                  //                       color: primary,
+                  //                       borderRadius: BorderRadius.circular(
+                  //                           buttonRadius)),
+                  //                   child: Icon(
+                  //                     _pickedImage == null
+                  //                         ? Icons.camera_alt
+                  //                         : Icons.sync,
+                  //                     color: white,
+                  //                     size: 30,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             )
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 2 * mainMargin,
                   ),
@@ -278,9 +271,7 @@ class _SignupState extends State<Signup> {
                     ispassword: false,
                     istextarea: false,
                     onchanged: () {
-                      setState(() {
-                        fnameErorr = false;
-                      });
+                      fnameErorr = false;
                     },
                   ),
                   SizedBox(
@@ -300,9 +291,7 @@ class _SignupState extends State<Signup> {
                     ispassword: false,
                     istextarea: false,
                     onchanged: () {
-                      setState(() {
-                        emailError = false;
-                      });
+                      emailError = false;
                     },
                   ),
                   SizedBox(
@@ -320,9 +309,9 @@ class _SignupState extends State<Signup> {
                     ispassword: true,
                     istextarea: false,
                     onchanged: () {
-                      setState(() {
+                      
                         passError = false;
-                      });
+                      
                     },
                   ),
                   SizedBox(
@@ -331,10 +320,10 @@ class _SignupState extends State<Signup> {
                   TextFormField(
                     controller: _dateController,
                     readOnly: true,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                     decoration: InputDecoration(
                         border: const OutlineInputBorder(),
-                        hintText: "Select Date",
+                        hintText: "Date Of Birth",
                         hintStyle: const TextStyle(
                           color: black,
                         ),
@@ -343,8 +332,8 @@ class _SignupState extends State<Signup> {
                               final DateTime? date = await showDatePicker(
                                   context: context,
                                   initialDate: DateTime.now(),
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime(2028));
+                                  firstDate: DateTime(1990),
+                                  lastDate: DateTime(2025));
                               final formatteddate = DateFormat(
                                 "dd-MM-yyyy",
                               ).format(date!);
@@ -445,9 +434,9 @@ class _SignupState extends State<Signup> {
                     ispassword: false,
                     istextarea: true,
                     onchanged: () {
-                      setState(() {
+                      
                         bioError = false;
-                      });
+                      
                     },
                   ),
                 ],
@@ -533,45 +522,48 @@ class _SignupState extends State<Signup> {
               borderRadius: 20,
               isloading: isloading,
               onPressed: () {
-                setState(() {
+                
                   isloading = true;
-                });
+                  print("printed");
+                
                 try {
-                  if (_pickedImage != null) {
+                  // if (_pickedImage == null) 
+                  {
                     setState(() {
-                      fnameErorr = name.text == "" ? true : false;
+                      // fnameErorr = name.text == "" ? true : false;
 
-                      emailError = email.text == "" ? true : false;
+                      // emailError = email.text == "" ? true : false;
 
-                      passError = pass.text == "" ? true : false;
+                      // passError = pass.text == "" ? true : false;
 
-                      dateError = date == null ? true : false;
-                      bioError = description.text == "" ? true : false;
-                      isloading = false;
-                    });
-                  } else {
-                    setState(() {
-                      CustomSnackBar(
-                              actionTile: "Close",
-                              haserror: true,
-                              isfloating: false,
-                              scaffoldKey: scaffoldKey,
-                              onPressed: () {},
-                              title: "Please choose profile picture!")
-                          .show(context);
-                      isloading = false;
+                      // dateError = date == null ? true : false;
+                      // bioError = description.text == "" ? true : false;
+                      // isloading = false;
                     });
                   }
+                  //  else {
+                    // setState(() {
+                    //   CustomSnackBar(
+                    //           actionTile: "Close",
+                    //           haserror: true,
+                    //           isfloating: false,
+                    //           scaffoldKey: scaffoldKey,
+                    //           onPressed: () {},
+                    //           title: "Please choose profile picture!")
+                    //       .show(context);
+                    //   isloading = false;
+                    // });
+                  // }
                 } finally {
-                  if (_pickedImage == null ||
-                      fnameErorr ||
+                  if (fnameText == null ||
+                     
                       emailError ||
                       passError ||
                       dateError ||
                       bioError) {
                     isloading = false;
 
-                    if (_pickedImage != null) {
+                    if (fnameText != null) {
                       CustomSnackBar(
                               onPressed: () {},
                               actionTile: "Close",
@@ -631,70 +623,70 @@ class _SignupState extends State<Signup> {
     );
   }
 
-  _loadPicker(ImageSource source) async {
-    File _image;
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: source);
+  // _loadPicker(ImageSource source) async {
+  //   File _image;
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.pickImage(source: source);
 
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-        _cropImage(_image);
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
+  //   setState(() {
+  //     if (pickedFile != null) {
+  //       _image = File(pickedFile.path);
+  //       _cropImage(_image);
+  //     } else {
+  //       print('No image selected.');
+  //     }
+  //   });
+  // }
 
-  void _cropImage(File picked) async {
-    CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: picked.path,
-      aspectRatioPresets: [CropAspectRatioPreset.square],
-      uiSettings: [
-        AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: primary,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false),
-      ],
-      maxWidth: 400,
-    );
+  // void _cropImage(File picked) async {
+  //   CroppedFile? croppedFile = await ImageCropper().cropImage(
+  //     sourcePath: picked.path,
+  //     aspectRatioPresets: [CropAspectRatioPreset.square],
+  //     uiSettings: [
+  //       AndroidUiSettings(
+  //           toolbarTitle: 'Cropper',
+  //           toolbarColor: primary,
+  //           toolbarWidgetColor: Colors.white,
+  //           initAspectRatio: CropAspectRatioPreset.original,
+  //           lockAspectRatio: false),
+  //     ],
+  //     maxWidth: 400,
+  //   );
 
-    if (croppedFile != null) {
-      setState(() {
-        File yourFile = File(croppedFile.path);
-        _pickedImage = yourFile;
-      });
-    }
-  }
+  //   if (croppedFile != null) {
+  //     setState(() {
+  //       File yourFile = File(croppedFile.path);
+  //       _pickedImage = yourFile;
+  //     });
+  //   }
+  // }
 
-  void _showPickOptionsDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              title: Text("Pick from Gallery"),
-              onTap: () {
-                Navigator.pop(context);
-                _loadPicker(ImageSource.gallery);
-              },
-            ),
-            ListTile(
-              title: Text("Take a Picture"),
-              onTap: () {
-                Navigator.pop(context);
-                _loadPicker(ImageSource.camera);
-              },
-            )
-          ],
-        ),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(mainMargin))),
-      ),
-    );
-  }
+  // void _showPickOptionsDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       content: Column(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: <Widget>[
+  //           ListTile(
+  //             title: Text("Pick from Gallery"),
+  //             onTap: () {
+  //               Navigator.pop(context);
+  //               _loadPicker(ImageSource.gallery);
+  //             },
+  //           ),
+  //           ListTile(
+  //             title: Text("Take a Picture"),
+  //             onTap: () {
+  //               Navigator.pop(context);
+  //               _loadPicker(ImageSource.camera);
+  //             },
+  //           )
+  //         ],
+  //       ),
+  //       shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.all(Radius.circular(mainMargin))),
+  //     ),
+  //   );
+  // }
 }

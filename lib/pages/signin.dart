@@ -152,9 +152,8 @@ class _SigninState extends State<Signin> {
                 istextarea: false,
                 readonly: false,
                 onchanged: () {
-                  setState(() {
-                    emailError = false;
-                  });
+                  emailError = false;
+                  ;
                 },
               ),
               SizedBox(
@@ -172,9 +171,7 @@ class _SigninState extends State<Signin> {
                 ispassword: true,
                 istextarea: false,
                 onchanged: () {
-                  setState(() {
-                    passError = false;
-                  });
+                  passError = false;
                 },
               ),
               SizedBox(
